@@ -17,8 +17,8 @@ eval_output_filename = "./result/eval/data.json"
 
 
 #A Dataframe Transform requires input PCollections to have a schema
-#set schema for a json element
 class applying_schema(typing.NamedTuple):
+    """Represents a Json element with schema (classes and value)."""
     classes: str
     value: float
 beam.coders.registry.register_coder(applying_schema, beam.coders.RowCoder)
