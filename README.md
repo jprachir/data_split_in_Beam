@@ -36,7 +36,7 @@ with beam.Pipeline(options) as pdf:
 ## Assumptions
 - The distribution of datapoints per class is random.
 - two possible classes: `asset_1` or `asset_2`. 
-- The json element format is { **`classes`**: `asset_1|asset_2`, `value`: `SomeFloat` } instead of { **`class`**: `asset_1|asset_2`, `value`: `SomeFloat` }. My intention was to focus on the task, apologize for that. (json "class" inflicting with a python keyword "class" so I changed it to "classes".)
+- The json element format is { **`classes`**: `asset_1|asset_2`, `value`: `SomeFloat` } instead of { **`class`**: `asset_1|asset_2`, `value`: `SomeFloat` }. My intention was to focus on the task, apologize for that. (json "class" conflicting with a python keyword "class" so I changed it to "classes".)
 - Independent of the size of the input data file, the number of datapoints per class in the data.
 - The reviewers are aware of beam keywords like Pipeline, PCollection, PTransform and so on, with it's operators (`|`,`>>`)
 
