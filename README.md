@@ -1,6 +1,7 @@
 ## ZenML challenge solution
 
 Task: implementing a `batch processing` job as part of a data ETL pipeline. 
+Subtasks:
   - Parsing the input file
   - 70/30 Partition of the data into two splits - namely *train* and *eval* for each class
 Input: Bounded data for Beam 
@@ -11,14 +12,14 @@ Input: Bounded data for Beam
 
 ## Third party library
 Distributed computing framework: Apache Beam
-It is handy for batch data processing(serves our purpose) pipelines and job scheduling. The tasks involve designing pipeline and executing on a runner. The distributed computing on many workers handled by Beam automatically on distributed computing frameworks like Spark. Beam has flexibility of custom transformations. 
+It is handy for batch data processing (serves our purpose here) pipelines and job scheduling. The task involves designing a pipeline and executing on a runner. The execution of a pipeline on many workers handled by the Beam automatically on distributed computing frameworks like Spark. Beam has flexibility for different SDKs, designing pipelines, custom transformations, execution on different runners, and much more.  
 
 ## Some answers
 1) How would your solution fair if we had an unknown number of classes in our dataset. Would your code still work? If not, what would be your approach to tackle a multi-class split. 
-No, my code won't work because I explicitly provied the different classes and transformed them individual dataframe. It would have been possible if I write a custom function which has argument a first column of the dataframe and returns a set of unique classes present in that column, and performs the transformation. 
+- Well, no, my code will not work because I explicitly provided the different available classes(`asset_1` and `asset_2`) and transformed them into individual dataframe. It would have been easier if I wrote a custom function which has an argument: first column of the dataframe, and returns: a set of unique classes present in that column, and perform the transformation. 
    
 2) How would you go about deploying this batch job on the cluster? A brief, written explanation 
-Currently I am testing the Beam pipeline locally since the data file is smaller. In Beam we can chose different runners, eg Spark, Flink. We can setup the runner while designing pipeline using pipeline options for configuring pipeline's execution.  
+Currently, I am testing the Beam pipeline locally (a DirectRunner) since the data file size is small. In Beam, we can choose different runners, eg, Spark, Flink. We can set up the runner while designing pipeline using the pipeline options for configuring the pipeline's execution.  
 - Setup in an Option list:
 
 ```python
@@ -29,19 +30,15 @@ options = PipelineOptions([
     "--job_endpoint=localhost:8099",
     "--environment_type=LOOPBACK"
 ])
-with beam.Pipeline(options) as p:
+with beam.Pipeline(options) as pdf:
 ```
 
 ## Assumptions
 - The distribution of datapoints per class is random.
 - two possible classes: `asset_1` or `asset_2`. 
-- The json element format is { **`classes`**: `asset_1|asset_2`, `value`: `SomeFloat` } instead of { **`class`**: `asset_1|asset_2`, `value`: `SomeFloat` }. My intention was to focus on the task, apologize for that.
+- The json element format is { **`classes`**: `asset_1|asset_2`, `value`: `SomeFloat` } instead of { **`class`**: `asset_1|asset_2`, `value`: `SomeFloat` }. My intention was to focus on the task, apologize for that. (json "class" inflicting with a python keyword "class" so I changed it to "classes".)
 - Independent of the size of the input data file, the number of datapoints per class in the data.
-- external third-party library : 
-- assumption
-  - json "class" inflicting with a python keyword "class" so I changed it to "classes".
-- Limitation
-  - Explicit mentioning of classes unique values
+- The reviewers are aware of beam keywords like Pipeline, PCollection, PTransform and so on, with it's operators (`|`,`>>`)
 
 ## Limitations
  - The schema should have been the same `class` instead of `classes`
@@ -52,7 +49,7 @@ with beam.Pipeline(options) as p:
  - Automating function for extracting unique class_names instead of providing explicitly
  - Performance testing using time module
  - Removing overhead in output files, using appropriate custom `coder`
- - Use of logging module
+ - Use of a logging module
  - Providing a docker file
 
 ## Courtesy
