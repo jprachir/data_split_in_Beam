@@ -1,7 +1,8 @@
 ## ZenML challenge solution
 
 Task: implementing a `batch processing` job as part of a data ETL pipeline. 
-Subtasks:
+
+- Subtasks:
   - Parsing the input file
   - 70/30 Partition of the data into two splits - namely *train* and *eval* for each class
 Input: Bounded data for Beam 
@@ -42,7 +43,7 @@ with beam.Pipeline(options) as pdf:
 
 ## Limitations
  - The schema should have been the same `class` instead of `classes`
- - The json element in the output file without overhead
+ - The json element in the output file without overhead. eg this is the outputted json element `BeamSchema_da67cbda_bf0d_4b17_88b6_9617c7bd92b8(classes='asset_2', value=0.6045564631)` which has overhead of schema instead of `{"classes":"asset_2","value":0.6045564631}`
 
 ## Possible improvements in the codebase and submission
  - Define data processing `class` for abstraction
