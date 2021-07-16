@@ -6,8 +6,8 @@ Task: implementing a `batch processing` job as part of a data ETL pipeline.
 Input: Bounded data for Beam 
 
 ## Instructions to execute
-- Please generate the data from slightly changed generate.py file
-- And execute each cell in jupyter notebook
+- Please generate the data from slightly changed generate.py file (cmd: `python generate_data.py`)
+- run command: `python script.py` which saves output folders (train and eval) to a folder result.
 
 ## Third party library
 Distributed computing framework: Apache Beam
