@@ -9,7 +9,7 @@ Input: Bounded data for Beam
 
 ## Instructions to execute
 - Please generate the data from slightly changed generate.py file (cmd: `python generate_data.py`)
-- run command: `python data_split_script.py` or `time python data_split_script.py` which saves output folders (train and eval) to a folder result.
+- run command: `python data_split_script.py` which saves output folders (train and eval) to a folder result.
 
 ## Third party library
 Distributed computing framework: Apache Beam
