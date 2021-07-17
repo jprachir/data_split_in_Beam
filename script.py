@@ -1,6 +1,7 @@
-# This class generates a random amount of data
-# pandas is a dependency `pip install pandas`
-# use this to generate a large bunch of data if you wish to benchmark your code
+# This script parses input Json file and splits the data into train and eval
+# apache beam is a dependency `pip install apache-beam`
+# json is a dependency `pip install json`
+# typing is dependency  `pip install typing`
 
 #setup
 import apache_beam as beam
