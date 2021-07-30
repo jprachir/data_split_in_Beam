@@ -1,5 +1,3 @@
-## ZenML challenge solution
-
 Task: implementing a `batch processing` job as part of a data ETL pipeline. 
 
 - Subtasks:
@@ -15,11 +13,8 @@ Input: Bounded data for Beam
 Distributed computing framework: Apache Beam
 It is handy for batch data processing (serves our purpose here) pipelines and job scheduling. The task involves designing a pipeline and executing on a runner. The execution of a pipeline on many workers handled by the Beam automatically on distributed computing frameworks like Spark. Beam has flexibility for different SDKs, designing pipelines, custom transformations, execution on different runners, and much more.  
 
-## Some answers
-1) How would your solution fair if we had an unknown number of classes in our dataset. Would your code still work? If not, what would be your approach to tackle a multi-class split. 
-- Well, no, my code will not work because I explicitly provided the different available classes(`asset_1` and `asset_2`) and transformed them into individual dataframe. It would have been easier if I wrote a custom function which has an argument: first column of the dataframe, and returns: a set of unique classes present in that column, and perform the transformation. 
    
-2) How would you go about deploying this batch job on the cluster? A brief, written explanation 
+###### How would you go about deploying this batch job on the cluster? 
 Currently, I am testing the Beam pipeline locally (a DirectRunner) since the data file size is small. In Beam, we can choose different runners, eg, Spark, Flink. We can set up the runner while designing pipeline using the pipeline options for configuring the pipeline's execution.  
 - Setup in an Option list:
 
@@ -33,25 +28,10 @@ options = PipelineOptions([
 ])
 with beam.Pipeline(options) as pdf:
 ```
-
 ## Assumptions
 - The distribution of datapoints per class is random.
 - two possible classes: `asset_1` or `asset_2`. 
-- The json element format is { **`classes`**: `asset_1|asset_2`, `value`: `SomeFloat` } instead of { **`class`**: `asset_1|asset_2`, `value`: `SomeFloat` }. My intention was to focus on the task, apologize for that. (json "class" conflicting with a python keyword "class" so I changed it to "classes".)
 - Independent of the size of the input data file, the number of datapoints per class in the data.
-- The reviewers are aware of beam keywords like Pipeline, PCollection, PTransform and so on, with it's operators (`|`,`>>`)
-
-## Limitations
- - The schema should have been the same `class` instead of `classes`
- - The json element in the output file without overhead. eg this is the outputted json element `BeamSchema_da67cbda_bf0d_4b17_88b6_9617c7bd92b8(classes='asset_2', value=0.6045564631)` which has overhead of schema instead of `{"classes":"asset_2","value":0.6045564631}`
-
-## Possible improvements in the codebase and submission
- - Define data processing `class` for abstraction
- - Automating function for extracting unique class_names instead of providing explicitly
- - Performance testing using time module
- - Removing overhead in output files, using appropriate custom `coder`
- - Use of a logging module
- - Providing a docker file
 
 ## Courtesy
 
